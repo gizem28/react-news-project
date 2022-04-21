@@ -1,9 +1,9 @@
 import "./App.css";
 import AppRouter from "./router/index.js";
-import { createStore, applyMiddleware, compose } from "redux";
+import { applyMiddleware, compose, createStore  } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-// import configureStore from './configureStore'
+import axios from 'axios';
 
 const initialState = {
   loading: false,
@@ -46,6 +46,28 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+    
+    case "SET_USER_LIST":
+        return {
+          ...state,
+          userList: action.payload,
+        };
+
+    case "SET_SELECTED_USER":
+      return {
+        ...state,
+        selectedUser: action.payload,
+      };
+    case "SET_NEWS_LIST":
+      return {
+        ...state,
+        newsList: action.payload,
+      };
+    case "SET_SELECTED_NEWS":
+      return {
+        ...state,
+        selectedNews: action.payload,
+      };
 
     default:
       return state;
@@ -76,6 +98,20 @@ store.subscribe(() => {
 store.dispatch({
   type: "SET_LOADING_FALSE",
 });
+
+
+export const getUserList = async (dispatch, getState) => {
+  try {
+      dispatch({ type: 'SET_LOADING_TRUE'})
+      const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+      dispatch({ type: 'SET_USER_LIST', payload: response.data })
+      // console.log(response);
+  } catch (error) {
+      console.log(error)
+  } finally{
+      dispatch({ type: 'SET_LOADING_FALSE'})
+  }
+}
 
 const App = () => {
   return (

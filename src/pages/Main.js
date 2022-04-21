@@ -1,15 +1,24 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React from 'react';
-
-const fakeUserList = [
-    { name: 'Ed', username: 'mred', email: 'mred@mail.com' },
-    { name: 'Felix', username: 'mrfelix', email: 'mrfelix@mail.com' },
-    { name: 'John', username: 'mrjohn', email: 'mrjohn@mail.com' },
-    { name: 'Tom', username: 'mrtom', email: 'mrtom@mail.com' },
-    { name: 'Jos', username: 'mrjos', email: 'mrjos@mail.com' },
-]
+import {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { getUserList } from '../App';
 
 const Main = () => {
+    const dispatch = useDispatch();
+    // 2 turlu yazma sekli var
+    // const userList = useSelector(state => state.userList);
+    // const loading = useSelector(state => state.userList);
+
+    const {loading, userList} = useSelector(state => state);
+
+    useEffect(() => {
+        
+        dispatch(getUserList);  
+        
+     }, [dispatch]);
+
+
     return (
         <TableContainer component={Paper} >
             <Table sx={{ minWidth: 650 }}>
@@ -22,7 +31,8 @@ const Main = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        fakeUserList.map((row) => (
+                        loading? "Loading...":
+                        userList.map((row) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
