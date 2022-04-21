@@ -1,7 +1,9 @@
-import './App.css';
+import "./App.css";
 import AppRouter from "./router/index.js";
-import {configureStore, applyMiddleware, compose} from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+// import configureStore from './configureStore'
 
 const initialState = {
   loading: false,
@@ -12,7 +14,7 @@ const initialState = {
   selectedUser: {},
   newList: [],
   selectedNews: {},
-}
+};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -40,31 +42,47 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case "CLEAR_ERROR":
-        return {
-            ...state,
-            error: action.payload,
-        };
-    
-    
+      return {
+        ...state,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
-}
+};
 
 let store;
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   // store = configureStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-  store = configureStore(rootReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
-}else{
+  store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  );
+} else {
   // store = configureStore(rootReducer);
-  store = configureStore(rootReducer, compose(applyMiddleware(thunk)));
+  store = createStore(rootReducer);
 }
 
-function App() {
-  return ( 
-  <div className = "App" >
-    <AppRouter / >
-    </div>);
-}
+// const store=configureStore(rootReducer);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+store.dispatch({
+  type: "SET_LOADING_FALSE",
+});
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  );
+};
 
 export default App;
