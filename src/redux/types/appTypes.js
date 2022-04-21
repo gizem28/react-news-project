@@ -1,0 +1,9 @@
+export const SET_LOADING_TRUE = 'SET_LOADING_TRUE';
+export const SET_LOADING_FALSE = 'SET_LOADING_FALSE';
+export const SET_TOKEN = 'SET_TOKEN';
+export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const SET_USER_LIST = 'SET_USER_LIST';
+export const SET_SELECTED_USER = 'SET_SELECTED_USER';
+export const SET_NEWS_LIST = 'SET_NEWS_LIST';
+export const SET_SELECTED_NEWS = 'SET_SELECTED_NEWS';
