@@ -1,0 +1,2 @@
+export const SET_NEW_LIST = 'SET_NEW_LIST';
+export const SET_SELECTED_NEWS = 'SET_SELECTED_NEWS';
