@@ -1,8 +1,7 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { getUserList } from '../App';
+import { getUserList } from '../redux/thunks/appThunks';
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -10,11 +9,14 @@ const Main = () => {
     // const userList = useSelector(state => state.userList);
     // const loading = useSelector(state => state.userList);
 
-    const {loading, userList} = useSelector(state => state);
+    // const {loading, userList} = useSelector(state => state);
 
+    const {loading} = useSelector(state => state.app);
+    const {userList} = useSelector(state => state.user);
+    
     useEffect(() => {
         
-        dispatch(getUserList);  
+        dispatch(getUserList());  
         
      }, [dispatch]);
 

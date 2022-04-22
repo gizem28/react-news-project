@@ -1,7 +1,7 @@
 import "./App.css";
 import AppRouter from "./router/index.js";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import store  from "./redux/store/index";
 // import { applyMiddleware, compose, createStore  } from "redux";
 // import thunk from "redux-thunk";
 // import axios from 'axios';
@@ -102,18 +102,6 @@ import { store } from "./redux/store";
 // });
 
 
-// export const getUserList = async (dispatch, getState) => {
-//   try {
-//       dispatch({ type: 'SET_LOADING_TRUE'})
-//       const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-//       dispatch({ type: 'SET_USER_LIST', payload: response.data })
-//       // console.log(response);
-//   } catch (error) {
-//       console.log(error)
-//   } finally{
-//       dispatch({ type: 'SET_LOADING_FALSE'})
-//   }
-// }
 
 const App = () => {
   return (

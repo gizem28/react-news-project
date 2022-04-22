@@ -1,5 +1,5 @@
 import { red } from '@mui/material/colors';
-import {SET_USER_LIST, SET_SELECTED_USER} from '../types';
+import {SET_USER_LIST, SET_SELECTED_USER} from '../types/userTypes';
 
 const initialState = {
     userList: [],
@@ -14,7 +14,11 @@ export const userReducer = (state=initialState, {type, payload}) => {
                 ...state,
                 userList: payload,
             };
-
+        case SET_SELECTED_USER:
+            return {
+                ...state,
+                selectedUser: payload,
+            };
 
             default:
                 return state;
